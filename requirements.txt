@@ -1,0 +1,29 @@
+# AirGuard dependencies — pinned for reproducibility.
+# Setup:  python -m venv .venv
+#         .venv\Scripts\activate           (Windows)
+#         pip install -r requirements.txt
+
+# --- Data engineering (L1-L4) — installed ---
+requests==2.34.2
+pandas==3.0.5
+numpy==2.5.2
+python-dotenv==1.2.3
+SQLAlchemy==2.0.52
+psycopg2-binary==2.9.12
+
+# --- Testing + viz ---
+pytest==9.1.1
+matplotlib==3.11.1
+seaborn==0.13.2
+
+# --- ML (L5) — add when we reach the model layer ---
+# scikit-learn
+# xgboost
+# lazypredict
+# mlflow
+
+# --- App (L6) ---
+# streamlit
+
+# Airflow runs in its own Docker container (docker-compose.yml),
+# intentionally not pinned here to avoid dependency conflicts.

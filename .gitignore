@@ -17,6 +17,7 @@ venv/
 # data + artifacts
 *.parquet
 *.db
+sample_*.csv
 mlruns/
 models/*.pkl
 models/*.joblib
