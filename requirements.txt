@@ -16,6 +16,10 @@ pytest==9.1.1
 matplotlib==3.11.1
 seaborn==0.13.2
 
+# --- EDA notebook (L3) — run/render notebooks/eda.ipynb ---
+nbconvert==7.17.1
+ipykernel==7.3.0
+
 # --- ML (L5) — add when we reach the model layer ---
 # scikit-learn
 # xgboost
