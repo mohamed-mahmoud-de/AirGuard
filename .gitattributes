@@ -1,0 +1,8 @@
+# Keep text files consistent, and never munge binaries with line-ending conversion.
+* text=auto
+
+# Binary assets — never apply CRLF/LF conversion (would corrupt them).
+*.pdf  binary
+*.png  binary
+*.jpg  binary
+*.ipynb -text

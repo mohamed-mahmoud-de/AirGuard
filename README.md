@@ -73,9 +73,20 @@ python src/ingest.py                 # smoke test: prints sample air + weather
 python -m src.storage                # creates schema, upserts, reads back
 ```
 
+**Clean + explore (L3):**
+```bash
+python -m src.clean                  # smoke test: dedup, gap-fill, outliers
+jupyter notebook notebooks/eda.ipynb # distributions, correlations, baseline
+```
+
+**Build features (L4):**
+```bash
+python -m src.features               # builds the feature table in Postgres
+```
+
 **Run tests:**
 ```bash
-python -m pytest -v                  # requires Docker up for storage tests
+python -m pytest -v                  # 20 tests (Docker up for storage tests)
 ```
 
 ---
@@ -86,21 +97,30 @@ AirGuard/
 ├── docker-compose.yml     # PostgreSQL service
 ├── requirements.txt       # pinned Python deps
 ├── .env.example           # config template
-├── sql/schema.sql         # database tables
+├── sql/schema.sql         # database tables (raw + features)
 ├── src/
-│   ├── ingest.py          # L1 — Open-Meteo API clients        ✅
-│   └── storage.py         # L2 — PostgreSQL upsert + read       ✅
-└── tests/                 # integration tests
+│   ├── ingest.py          # L1 — Open-Meteo API clients         ✅
+│   ├── storage.py         # L2 — PostgreSQL upsert + read        ✅
+│   ├── clean.py           # L3 — dedup, gap-fill, outliers       ✅
+│   └── features.py        # L4 — lags, rolling, time, targets    ✅
+├── notebooks/
+│   └── eda.ipynb          # L3 — EDA + persistence baseline      ✅
+└── tests/                 # 20 tests (unit + integration)
 ```
 
 ## Roadmap
 - [x] L1 — Ingestion (Open-Meteo air quality + weather)
 - [x] L2 — Storage (PostgreSQL, idempotent upserts)
-- [ ] L3 — Cleaning + EDA (+ persistence baseline)
-- [ ] L4 — Feature engineering
+- [x] L3 — Cleaning + EDA (+ persistence baseline)
+- [x] L4 — Feature engineering (lags, rolling, time, targets)
 - [ ] L5 — Model (XGBoost forecast + classifier, MLflow)
 - [ ] L6 — Streamlit app
 - [ ] L7 — Airflow scheduling + retrain loop
+
+> **Where we are:** the full data-engineering half (L1–L4) is complete — a
+> feature table of 8,748 hourly rows sits in Postgres, ready for modelling. EDA
+> set the target horizon at **6–12h ahead**, where an ML model has real room to
+> beat the naive persistence baseline. Next: L5 training.
 
 ## Team
 - **Mohamed Mahmoud** — MLOps Engineer
